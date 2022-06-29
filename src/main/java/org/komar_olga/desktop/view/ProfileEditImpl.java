@@ -98,7 +98,8 @@ public class ProfileEditImpl extends JPanel {
                 .cell(btnEdit)
                 .cell(btnSave)
                 .cell(btnCancel)
-                .separator();
+                .cell(new JLabel())
+                .fillX();
         gblBtn.done();
         JLabel labelName = new JLabel("Name");
         JTextField jTextFieldNam = new JTextField();
