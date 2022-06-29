@@ -95,6 +95,8 @@ public class ProfileViewImpl extends JPanel {
         gbl.row()
                 .cellXRemainder(profileSqlTextJScrollPane).fillX();
 
+//        gbl.row()
+//                .cellX(getTableProfile(),1).fillX();
         JTextArea jTextArea=new JTextArea(15,50);
 
         gbl.row().cellXYRemainder(jTextArea).fillXY();
@@ -103,6 +105,13 @@ public class ProfileViewImpl extends JPanel {
         return panelSettings;
     }
 
+//    private JXTable getTableProfile() {
+//        JXTable jxTableProfile= new JXTable();
+//        jxTableProfile.e(1);
+//        jxTableProfile.setVisible(true);
+//        return jxTableProfile;
+//
+//    }
 
 
 //    private JPanel getButtonPanel() {
@@ -162,8 +171,8 @@ public class ProfileViewImpl extends JPanel {
     public void showProfile(int id) {
         try {
 
-            int rowIndex = getRowIndexForIdColumnFromModel("ProfileColumnNames.ID.getColName()", id);
-            profileProfileJXTable.setRowSelectionInterval(rowIndex, rowIndex);
+            //int rowIndex = getRowIndexForIdColumnFromModel("ProfileColumnNames.ID.getColName()", id);
+            profileProfileJXTable.setRowSelectionInterval(0,0);
             profileTaskJXTable.setRowSelectionInterval(0, 0);
             profileSqlJXTable.setRowSelectionInterval(0, 0);
 
@@ -191,22 +200,22 @@ public class ProfileViewImpl extends JPanel {
 //        this.setVisible(false);
 //    }
 
-//    @Override
-//    public void bindPresenter() {
-//        profilePresenter.get().fillProfileModel(profileProfileModel);
-//
-//        profileProfileJXTable.getColumnExt(0).setVisible(false);
-//        profileProfileJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
-//
-//        profileTaskJXTable.getColumnExt(0).setVisible(false);
-//        profileTaskJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
-//
-//        profileSqlJXTable.getColumnExt(0).setVisible(false);
-//        profileSqlJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
-//
-//        profileMetadataJXTable.getColumnExt(0).setVisible(false);
-//        profileMetadataJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
-//
-//        addWindowListener(profilePresenter.get());
-//    }
+    //@Override
+    public void bindPresenter() {
+        //profilePresenter.get().fillProfileModel(profileProfileModel);
+
+        profileProfileJXTable.getColumnExt(0).setVisible(false);
+        //profileProfileJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
+
+        profileTaskJXTable.getColumnExt(0).setVisible(false);
+        //profileTaskJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
+
+        profileSqlJXTable.getColumnExt(0).setVisible(false);
+        //profileSqlJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
+
+        profileMetadataJXTable.getColumnExt(0).setVisible(false);
+        //profileMetadataJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
+
+        //addWindowListener(profilePresenter.get());
+    }
 }

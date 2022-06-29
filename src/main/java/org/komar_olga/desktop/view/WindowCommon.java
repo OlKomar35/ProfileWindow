@@ -18,12 +18,14 @@ public class WindowCommon extends JFrame{
         jDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         jTabbedPane= new JTabbedPane();
 
-        ProfileViewImpl panel=new ProfileViewImpl();
-        panel.setPreferredSize(new Dimension(200,200));
-        panel.setBorder(new EtchedBorder());
-        jTabbedPane.addTab("View", panel);
 
-        jTabbedPane.addTab("Edit", new JPanel());
+            ProfileViewImpl panelView =new ProfileViewImpl();
+            ProfileEditImpl panelEdit= new ProfileEditImpl();
+        panelView.setPreferredSize(new Dimension(200,200));
+        panelView.setBorder(new EtchedBorder());
+        jTabbedPane.addTab("View", panelView);
+
+        jTabbedPane.addTab("Edit", panelEdit);
         jDialog.add(jTabbedPane);
 
         jDialog.setVisible(true);
