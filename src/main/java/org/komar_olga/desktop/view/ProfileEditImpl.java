@@ -1,17 +1,28 @@
 package org.komar_olga.desktop.view;
 
+import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.painlessgridbag.PainlessGridBag;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class ProfileEditImpl extends JPanel {
-    private JScrollPane profileProfileJScrollPane = new JScrollPane();
-    private JScrollPane profileTaskJScrollPane = new JScrollPane();
-    private JScrollPane profileConnectionJScrollPane = new JScrollPane();
-    private JScrollPane profileQueryJScrollPane = new JScrollPane();
+    String[][] dataName={{"1","2"},{"3","4"},{"5","6"}};
+    String[] dataTitle={"Number","Content"};
+    private final DefaultTableModel profileProfileModel = new DefaultTableModel(dataName,dataTitle);
+    private final JSplitPane profileProfileSplitPane= new JSplitPane();
+    private JXTable profileProfileJXTable= new JXTable(profileProfileModel);
+    private JXTable profileTaskJXTable= new JXTable(profileProfileModel);
+    private JXTable profileConnectionJXTable= new JXTable(profileProfileModel);
+    private JXTable profileQueryJXTable= new JXTable(profileProfileModel);
+    private JScrollPane profileProfileJScrollPane = new JScrollPane(profileProfileJXTable);
+    private JScrollPane profileTaskJScrollPane = new JScrollPane(profileTaskJXTable);
+    private JScrollPane profileConnectionJScrollPane = new JScrollPane(profileConnectionJXTable);
+    private JScrollPane profileQueryJScrollPane = new JScrollPane(profileQueryJXTable);
+
 
     public ProfileEditImpl() {
         this.fillContentPane();
@@ -47,12 +58,13 @@ public class ProfileEditImpl extends JPanel {
                 .cell(new JXTitledSeparator("Connection")).fillX()
                 .cell(new JXTitledSeparator("Query")).fillX();
 
-
+        profileProfileSplitPane.add(profileProfileJScrollPane,JSplitPane.RIGHT);
+        profileProfileSplitPane.add(profileProfileJXTable,JSplitPane.LEFT);
         gbl.row()
-                .cellX(profileProfileJScrollPane, 1).fillX()
-                .cellX(profileTaskJScrollPane, 1).fillX()
-                .cellX(profileConnectionJScrollPane, 1).fillX()
-                .cellX(profileQueryJScrollPane, 1).fillX();
+                .cell(profileProfileSplitPane).fillXY()
+                .cell(profileTaskJScrollPane).fillXY()
+                .cellX(profileConnectionJScrollPane, 1).fillXY()
+                .cellX(profileQueryJScrollPane, 1).fillXY();
         JTabbedPane jTabbedPaneEdit = new JTabbedPane();
 
 

@@ -7,29 +7,33 @@ import org.painlessgridbag.PainlessGridBag;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class ProfileViewImpl extends JPanel {
 
-    private JPanel jPanel= new JPanel();
+    private JPanel jPanel = new JPanel();
+    String[][] dataName={{"1","2"},{"3","4"},{"5","6"}};
+    String[] dataTitle={"Number","Content"};
+    private final DefaultTableModel profileProfileModel = new DefaultTableModel(dataName,dataTitle);
 
-    private final JXTable profileProfileJXTable= new JXTable();
-    private final JXTable profileTaskJXTable= new JXTable();
+    private JXTable profileProfileJXTable = new JXTable(profileProfileModel);
+    private final JXTable profileTaskJXTable = new JXTable(profileProfileModel);
     private final JXTable profileSqlJXTable = new JXTable();
-    private final JXTable profileMetadataJXTable= new JXTable();
-    private final JScrollPane profileProfileJScrollPane = new JScrollPane();
-    private final JScrollPane profileTaskJScrollPane = new JScrollPane();
-    private final JScrollPane profileSqlJScrollPane= new JScrollPane();
+    private final JXTable profileMetadataJXTable = new JXTable();
+    private final JScrollPane profileProfileJScrollPane = new JScrollPane(profileProfileJXTable);
+    private final JScrollPane profileTaskJScrollPane = new JScrollPane(profileTaskJXTable);
+    private final JScrollPane profileSqlJScrollPane = new JScrollPane();
     private final JScrollPane profileMetadataJScrollPane = new JScrollPane();
-    private final DetailedComboBox profileConnectionDetailedComboBox = new DetailedComboBox(new String[]{"name"}, new int[]{1},2);
+    private final DetailedComboBox profileConnectionDetailedComboBox = new DetailedComboBox(new String[]{"name"}, new int[]{1}, 2);
     private final JTextField profileUrlJTextField = new JTextField();
     private final JScrollPane profileSqlTextJScrollPane = new JScrollPane();
     private final JScrollPane profileSqlDescJScrollPane = new JScrollPane();
     private final JTextArea profileSqlTextJTextArea = new JTextArea();
     private final JTextArea profileSqlDescJTextArea = new JTextArea();
 
-    private final DefaultTableModel profileProfileModel = new DefaultTableModel();
+
 
 
     public ProfileViewImpl() {
@@ -47,6 +51,9 @@ public class ProfileViewImpl extends JPanel {
 //        this.profileSqlDescJScrollPane = new JScrollPane();
 //        this.profileSqlTextJTextArea = new JTextArea();
 //        this.profileSqlDescJTextArea = new JTextArea();
+
+
+
 
 
         this.fillContentPane();
@@ -75,7 +82,7 @@ public class ProfileViewImpl extends JPanel {
         JPanel panelSettings = new JPanel();
         panelSettings.setBorder(new EtchedBorder());
 
-        PainlessGridBag gbl = new PainlessGridBag(panelSettings,  false);
+        PainlessGridBag gbl = new PainlessGridBag(panelSettings, false);
 
 //        gbl.row()
 //                .cellX(getButtonPanel(), 4).fillX();
@@ -87,32 +94,22 @@ public class ProfileViewImpl extends JPanel {
                 .cell(new JXTitledSeparator("")).fillX();
 
 
-       gbl.row()
-               .cellX(profileProfileJScrollPane, 1).fillX()
-               .cellX(profileTaskJScrollPane, 1).fillX()
+        gbl.row()
+                .cellX(profileProfileJScrollPane,1).fillXY()
+                .cellX(profileTaskJScrollPane, 1).fillXY()
                 .cellX(getConnectionAndSql(), 2).fillXY();
 
         gbl.row()
                 .cellXRemainder(profileSqlTextJScrollPane).fillX();
 
-//        gbl.row()
-//                .cellX(getTableProfile(),1).fillX();
-        JTextArea jTextArea=new JTextArea(15,50);
+
+        JTextArea jTextArea = new JTextArea(15, 50);
 
         gbl.row().cellXYRemainder(jTextArea).fillXY();
         gbl.done();
 
         return panelSettings;
     }
-
-//    private JXTable getTableProfile() {
-//        JXTable jxTableProfile= new JXTable();
-//        jxTableProfile.e(1);
-//        jxTableProfile.setVisible(true);
-//        return jxTableProfile;
-//
-//    }
-
 
 //    private JPanel getButtonPanel() {
 //        JPanel buttonPanel = new JPanel();
@@ -134,7 +131,7 @@ public class ProfileViewImpl extends JPanel {
     private JPanel getConnectionAndSql() {
         JPanel jPanel = new JPanel();
 
-        PainlessGridBag gbl = new PainlessGridBag(jPanel,  false);
+        PainlessGridBag gbl = new PainlessGridBag(jPanel, false);
 
         JLabel lblName = new JLabel("Name");
         JLabel lblUrl = new JLabel("Url");
@@ -172,7 +169,7 @@ public class ProfileViewImpl extends JPanel {
         try {
 
             //int rowIndex = getRowIndexForIdColumnFromModel("ProfileColumnNames.ID.getColName()", id);
-            profileProfileJXTable.setRowSelectionInterval(0,0);
+            profileProfileJXTable.setRowSelectionInterval(0, 0);
             profileTaskJXTable.setRowSelectionInterval(0, 0);
             profileSqlJXTable.setRowSelectionInterval(0, 0);
 
@@ -200,22 +197,22 @@ public class ProfileViewImpl extends JPanel {
 //        this.setVisible(false);
 //    }
 
-    //@Override
-    public void bindPresenter() {
-        //profilePresenter.get().fillProfileModel(profileProfileModel);
-
-        profileProfileJXTable.getColumnExt(0).setVisible(false);
-        //profileProfileJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
-
-        profileTaskJXTable.getColumnExt(0).setVisible(false);
-        //profileTaskJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
-
-        profileSqlJXTable.getColumnExt(0).setVisible(false);
-        //profileSqlJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
-
-        profileMetadataJXTable.getColumnExt(0).setVisible(false);
-        //profileMetadataJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
-
-        //addWindowListener(profilePresenter.get());
-    }
+//    //@Override
+//    public void bindPresenter() {
+//        //profilePresenter.get().fillProfileModel(profileProfileModel);
+//
+//        profileProfileJXTable.getColumnExt(0).setVisible(false);
+//        //profileProfileJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
+//
+//        profileTaskJXTable.getColumnExt(0).setVisible(false);
+//        //profileTaskJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
+//
+//        profileSqlJXTable.getColumnExt(0).setVisible(false);
+//        //profileSqlJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
+//
+//        profileMetadataJXTable.getColumnExt(0).setVisible(false);
+//        //profileMetadataJXTable.getColumnModel().getColumn(0).setCellRenderer(new ActiveColumnCellRenderer());
+//
+//        //addWindowListener(profilePresenter.get());
+//    }
 }
