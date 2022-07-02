@@ -24,7 +24,8 @@ public class WindowCommon extends JDialog {
         panelView.setPreferredSize(new Dimension(200, 200));
         panelView.setBorder(new EtchedBorder());
         jTabbedPane.addTab("View", panelView);
-
+        panelEdit.setPreferredSize(new Dimension(200, 200));
+        panelEdit.setBorder(new EtchedBorder());
         jTabbedPane.addTab("Edit", panelEdit);
         jDialog.add(jTabbedPane);
 

@@ -6,25 +6,29 @@ import org.painlessgridbag.PainlessGridBag;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class ProfileEditImpl extends JPanel {
-    String[][] dataName={{"1","2"},{"3","4"},{"5","6"}};
-    String[] dataTitle={"Number","Content"};
-    private final DefaultTableModel profileProfileModel = new DefaultTableModel(dataName,dataTitle);
-    private final JSplitPane profileProfileSplitPane= new JSplitPane();
-    private JXTable profileProfileJXTable= new JXTable(profileProfileModel);
-    private JXTable profileTaskJXTable= new JXTable(profileProfileModel);
-    private JXTable profileConnectionJXTable= new JXTable(profileProfileModel);
-    private JXTable profileQueryJXTable= new JXTable(profileProfileModel);
+    String[][] dataName = {{"1", "2"}, {"3", "4"}, {"5", "6"}};
+    String[] dataTitle = {"id", "Name"};
+    private final DefaultTableModel profileProfileModel = new DefaultTableModel(dataName, dataTitle);
+
+    private JXTable profileProfileJXTable = new JXTable(profileProfileModel);
+    private JXTable profileTaskJXTable = new JXTable(profileProfileModel);
+    private JXTable profileConnectionJXTable = new JXTable(profileProfileModel);
+    private JXTable profileQueryJXTable = new JXTable(profileProfileModel);
     private JScrollPane profileProfileJScrollPane = new JScrollPane(profileProfileJXTable);
     private JScrollPane profileTaskJScrollPane = new JScrollPane(profileTaskJXTable);
     private JScrollPane profileConnectionJScrollPane = new JScrollPane(profileConnectionJXTable);
     private JScrollPane profileQueryJScrollPane = new JScrollPane(profileQueryJXTable);
-
+    private JTabbedPane jTabbedPaneEdit = new JTabbedPane();
+    private JTextField jTextFieldNam = new JTextField();
 
     public ProfileEditImpl() {
+
         this.fillContentPane();
 
         this.setVisible(true);
@@ -58,14 +62,59 @@ public class ProfileEditImpl extends JPanel {
                 .cell(new JXTitledSeparator("Connection")).fillX()
                 .cell(new JXTitledSeparator("Query")).fillX();
 
-        profileProfileSplitPane.add(profileProfileJScrollPane,JSplitPane.RIGHT);
-        profileProfileSplitPane.add(profileProfileJXTable,JSplitPane.LEFT);
+        this.profileProfileModel.setRowCount(10);
+        setProfileProfileModel(profileProfileJXTable);
+        setProfileProfileModel(profileTaskJXTable);
+        setProfileProfileModel(profileConnectionJXTable);
+        setProfileProfileModel(profileQueryJXTable);
+
+        ListSelectionModel cellSElectionModel0 = profileProfileJXTable.getSelectionModel();
+        cellSElectionModel0.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        cellSElectionModel0.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                String selectedData = (String) profileProfileModel.getValueAt(profileProfileJXTable.getSelectedRow(), 1);
+                jTabbedPaneEdit.setSelectedIndex(0);
+                jTextFieldNam.setText(selectedData);
+            }
+        });
+        ListSelectionModel cellSElectionModel1 = profileTaskJXTable.getSelectionModel();
+        cellSElectionModel1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        cellSElectionModel1.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                String selectedData = (String) profileProfileModel.getValueAt(profileTaskJXTable.getSelectedRow(), 1);
+                jTabbedPaneEdit.setSelectedIndex(1);
+                jTextFieldNam.setText(selectedData);
+            }
+        });
+        ListSelectionModel cellSElectionModel2 = profileConnectionJXTable.getSelectionModel();
+        cellSElectionModel2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        cellSElectionModel2.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                String selectedData = (String) profileProfileModel.getValueAt(profileConnectionJXTable.getSelectedRow(), 1);
+                jTabbedPaneEdit.setSelectedIndex(2);
+                jTextFieldNam.setText(selectedData);
+            }
+        });
+        ListSelectionModel cellSElectionModel3 = profileQueryJXTable.getSelectionModel();
+        cellSElectionModel3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        cellSElectionModel3.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                String selectedData = (String) profileProfileModel.getValueAt(profileQueryJXTable.getSelectedRow(), 1);
+                jTabbedPaneEdit.setSelectedIndex(3);
+                jTextFieldNam.setText(selectedData);
+            }
+        });
+
         gbl.row()
-                .cell(profileProfileSplitPane).fillXY()
+                .cell(profileProfileJScrollPane).fillXY()
                 .cell(profileTaskJScrollPane).fillXY()
                 .cellX(profileConnectionJScrollPane, 1).fillXY()
                 .cellX(profileQueryJScrollPane, 1).fillXY();
-        JTabbedPane jTabbedPaneEdit = new JTabbedPane();
+        jTabbedPaneEdit = new JTabbedPane();
 
 
         jTabbedPaneEdit.addTab("Profile", getJTabbedPane());
@@ -94,6 +143,7 @@ public class ProfileEditImpl extends JPanel {
         gbl.row()
                 .cellXRemainder(jPanelTextField).fillXY();
         gbl.done();
+
         JButton btnNew = new JButton("New");
         JButton btnCopy = new JButton("Copy");
         JButton btnDel = new JButton("Delete");
@@ -114,14 +164,9 @@ public class ProfileEditImpl extends JPanel {
                 .fillX();
         gblBtn.done();
         JLabel labelName = new JLabel("Name");
-        JTextField jTextFieldNam = new JTextField();
+        jTextFieldNam = new JTextField();
         JLabel labelDescription = new JLabel("Description");
         JTextField jTextFieldDescription = new JTextField();
-//        JLabel jLabel = new JLabel();
-//
-//        gblField.row().cell(jLabel).fillX();
-//        gbl.row().cell(jLabel).fillX();
-//        gbl.row().cell(jLabel).fillX();
 
         gblField.row()
                 .cell(labelName).cell(jTextFieldNam).fillX();
@@ -131,6 +176,16 @@ public class ProfileEditImpl extends JPanel {
 
 
         return jPanelTabbedPane;
+    }
+
+    private void setProfileProfileModel(JXTable jxTable) {
+
+        jxTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jxTable.setColumnControlVisible(true);
+        jxTable.setHorizontalScrollEnabled(true);
+        jxTable.setEditable(false);
+        jxTable.setVisibleRowCount(8);
+        jxTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
 }

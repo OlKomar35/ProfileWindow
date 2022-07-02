@@ -7,7 +7,6 @@ import org.painlessgridbag.PainlessGridBag;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
@@ -15,7 +14,7 @@ public class ProfileViewImpl extends JPanel {
 
     private JPanel jPanel = new JPanel();
     String[][] dataName={{"1","2"},{"3","4"},{"5","6"}};
-    String[] dataTitle={"Number","Content"};
+    String[] dataTitle={"id","Name"};
     private final DefaultTableModel profileProfileModel = new DefaultTableModel(dataName,dataTitle);
 
     private JXTable profileProfileJXTable = new JXTable(profileProfileModel);
@@ -67,7 +66,18 @@ public class ProfileViewImpl extends JPanel {
 
 
     private void fillContentPane() {
-
+        profileProfileJXTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        profileProfileJXTable.setColumnControlVisible(true);
+        profileProfileJXTable.setHorizontalScrollEnabled(true);
+        profileProfileJXTable.setEditable(false);
+        profileProfileJXTable.setVisibleRowCount(8);
+        profileProfileJXTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        profileTaskJXTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        profileTaskJXTable.setColumnControlVisible(true);
+        profileTaskJXTable.setHorizontalScrollEnabled(true);
+        profileTaskJXTable.setEditable(false);
+        profileTaskJXTable.setVisibleRowCount(8);
+        profileTaskJXTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.setBorder(new EtchedBorder());
 
         PainlessGridBag gbl = new PainlessGridBag(this, false);
