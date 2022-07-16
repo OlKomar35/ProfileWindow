@@ -1,15 +1,25 @@
 package org.komar_olga.desktop.view;
 
-import org.jdesktop.swingx.JXTable;
-import org.jdesktop.swingx.JXTitledSeparator;
-import org.painlessgridbag.PainlessGridBag;
-
-import javax.swing.*;
+import java.awt.Toolkit;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import org.jdesktop.swingx.JXTable;
+import org.jdesktop.swingx.JXTitledSeparator;
+import org.painlessgridbag.PainlessGridBag;
 
 public class ProfileEditImpl extends JPanel {
     String[][] dataName = {{"1", "2"}, {"3", "4"}, {"5", "6"}};
@@ -26,6 +36,9 @@ public class ProfileEditImpl extends JPanel {
     private JScrollPane profileQueryJScrollPane = new JScrollPane(profileQueryJXTable);
     private JTabbedPane jTabbedPaneEdit = new JTabbedPane();
     private JTextField jTextFieldNam = new JTextField();
+    private DemoCheckComboBox jCheckBoxMenuItem;
+    private JComboBox jComboBox=new JComboBox<>();
+    private JCheckBox jCheckBox=new JCheckBox("Demo1");
 
     public ProfileEditImpl() {
 
@@ -43,13 +56,25 @@ public class ProfileEditImpl extends JPanel {
         this.setBorder(new EtchedBorder());
 
         PainlessGridBag gbl = new PainlessGridBag(this, false);
-
+        this.jCheckBoxMenuItem=new DemoCheckComboBox(makeModel());
         gbl.row().cell(profileSettings()).fillX();
         gbl.row().separator();
-
+        gbl.row().cell(jComboBox).fillX();
+        gbl.row().cell(jCheckBoxMenuItem).fillX();
+        gbl.row().cell(jCheckBox).fillX();
         gbl.doneAndPushEverythingToTop();
     }
-
+    private static ComboBoxModel<CheckableItem> makeModel() {
+        CheckableItem[] m = {
+            new CheckableItem("aaa", false),
+            new CheckableItem("bb", true),
+            new CheckableItem("111", false),
+            new CheckableItem("33333", true),
+            new CheckableItem("2222", true),
+            new CheckableItem("c", false)
+        };
+        return new DefaultComboBoxModel<>(m);
+    }
     private JPanel profileSettings() {
         JPanel panelSettings = new JPanel();
         panelSettings.setBorder(new EtchedBorder());
